@@ -231,15 +231,6 @@ def channel(channelid:str,response: Response,request: Request,yuki: Union[str] =
     t = get_channel(channelid)
     return template("channel.html", {"request": request,"results":t[0],"channelname":t[1]["channelname"],"channelicon":t[1]["channelicon"],"channelprofile":t[1]["channelprofile"],"proxy":proxy})
 
-@app.get("/answer", response_class=HTMLResponse)
-def set_cokie(q:str):
-    t = get_level(q)
-    if t > 5:
-        return f"level{t}\n推測を推奨する"
-    elif t == 0:
-        return "level12以上\nほぼ推測必須"
-    return f"level{t}\n覚えておきたいレベル"
-
 @app.get("/playlist", response_class=HTMLResponse)
 def playlist(list:str,response: Response,request: Request,page:Union[int,None]=1,yuki: Union[str] = Cookie(None),proxy: Union[str] = Cookie(None)):
     if not(check_cokie(yuki)):
@@ -266,47 +257,6 @@ def comments(request: Request,v:str):
 @app.get("/thumbnail")
 def thumbnail(v:str):
     return Response(content = requests.get(fr"https://img.youtube.com/vi/{v}/0.jpg").content,media_type=r"image/jpeg")
-
-@app.get("/bbs",response_class=HTMLResponse)
-def view_bbs(request: Request,name: Union[str, None] = "",seed:Union[str,None]="",channel:Union[str,None]="main",verify:Union[str,None]="false",yuki: Union[str] = Cookie(None)):
-    if not(check_cokie(yuki)):
-        return redirect("/")
-    res = HTMLResponse(requests.get(fr"{url}bbs?name={urllib.parse.quote(name)}&seed={urllib.parse.quote(seed)}&channel={urllib.parse.quote(channel)}&verify={urllib.parse.quote(verify)}",cookies={"yuki":"True"}).text)
-    return res
-
-@cache(seconds=5)
-def bbsapi_cached(verify,channel):
-    return requests.get(fr"{url}bbs/api?t={urllib.parse.quote(str(int(time.time()*1000)))}&verify={urllib.parse.quote(verify)}&channel={urllib.parse.quote(channel)}",cookies={"yuki":"True"}).text
-
-@app.get("/bbs/api",response_class=HTMLResponse)
-def view_bbs(request: Request,t: str,channel:Union[str,None]="main",verify: Union[str,None] = "false"):
-    print(fr"{url}bbs/api?t={urllib.parse.quote(t)}&verify={urllib.parse.quote(verify)}&channel={urllib.parse.quote(channel)}")
-    return bbsapi_cached(verify,channel)
-
-@app.get("/bbs/result")
-def write_bbs(request: Request,name: str = "",message: str = "",seed:Union[str,None] = "",channel:Union[str,None]="main",verify:Union[str,None]="false",yuki: Union[str] = Cookie(None)):
-    if not(check_cokie(yuki)):
-        return redirect("/")
-    t = requests.get(fr"{url}bbs/result?name={urllib.parse.quote(name)}&message={urllib.parse.quote(message)}&seed={urllib.parse.quote(seed)}&channel={urllib.parse.quote(channel)}&verify={urllib.parse.quote(verify)}&info={urllib.parse.quote(get_info(request))}&serververify={get_verifycode()}",cookies={"yuki":"True"}, allow_redirects=False)
-    if t.status_code != 307:
-        return HTMLResponse(t.text)
-    return redirect(f"/bbs?name={urllib.parse.quote(name)}&seed={urllib.parse.quote(seed)}&channel={urllib.parse.quote(channel)}&verify={urllib.parse.quote(verify)}")
-
-@cache(seconds=30)
-def how_cached():
-    return requests.get(fr"{url}bbs/how").text
-
-@app.get("/bbs/how",response_class=PlainTextResponse)
-def view_commonds(request: Request,yuki: Union[str] = Cookie(None)):
-    if not(check_cokie(yuki)):
-        return redirect("/")
-    return how_cached()
-
-@app.get("/load_instance")
-def home():
-    global url
-    url = requests.get(r'https://raw.githubusercontent.com/mochidukiyukimi/yuki-youtube-instance/main/instance.txt').text.rstrip()
-
 
 @app.exception_handler(500)
 def page(request: Request,__):
