@@ -30,6 +30,7 @@
             margin: 5px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box; /* Adjust size to fit the container */
         }
         .login-form button {
             width: 100%;
@@ -39,6 +40,7 @@
             color: #fff;
             border-radius: 4px;
             cursor: pointer;
+            box-sizing: border-box; /* Ensure button and input align */
         }
         .login-form button:hover {
             background-color: #0056b3;
@@ -65,7 +67,7 @@
 
             const password = document.getElementById('password').value;
 
-            if (password === 'password123') {
+            if (password === '85175') {
                 document.cookie = "yuki=True; path=/";
                 window.location.href = '/';
             } else {
