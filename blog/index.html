@@ -1,79 +1,48 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログインフォーム</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        .login-form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        .login-form h2 {
-            margin: 0 0 15px;
-        }
-        .login-form input {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box; /* Adjust size to fit the container */
-        }
-        .login-form button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007BFF;
-            border: none;
-            color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
-            box-sizing: border-box; /* Ensure button and input align */
-        }
-        .login-form button:hover {
-            background-color: #0056b3;
-        }
-        .error {
-            color: red;
-            margin: 10px 0;
-        }
-    </style>
-</head>
 <body>
-    <div class="login-form">
-        <h2>ログイン</h2>
-        <form id="loginForm">
-            <input type="password" id="password" name="password" placeholder="パスワード" required>
-            <div id="error" class="error"></div>
-            <button type="submit">ログイン</button>
-        </form>
-    </div>
-
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, minimum-scale=1, width=device-width">
+    <title>Error 404 (見つかりませんでした)!!1</title>
+    <style nonce="">*{margin:0;padding:0}html,code{font:15px/22px arial,sans-serif}html{background:#fff;color:#222;padding:15px}body{color:#222;text-align:unset;margin:7% auto 0;max-width:390px;min-height:180px;padding:30px 0 15px;}* >
+        body{background:url(//www.google.com/images/errors/robot.png) 100% 5px no-repeat;padding-right:205px}p{margin:11px 0 22px;overflow:hidden}pre{white-space:pre-wrap;}ins{color:#777;text-decoration:none}a img{border:0}@media screen and (max-width:772px){body{background:none;margin-top:0;max-width:none;padding-right:0}}#logo{background:url(//www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png) no-repeat;margin-left:-5px}@media only screen and (min-resolution:192dpi){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat 0% 0%/100% 100%;-moz-border-image:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) 0}}@media only screen and (-webkit-min-device-pixel-ratio:2){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat;-webkit-background-size:100% 100%}}#logo{display:inline-block;height:54px;width:150px}</style>
+</head>
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
+        function backend(event) {
             event.preventDefault();
-
-            const password = document.getElementById('password').value;
-
-            if (password === '85175') {
-                document.cookie = "yuki=True; path=/";
-                window.location.href = '/';
-            } else {
-                document.getElementById('error').innerText = 'パスワードが正しくありません。';
+ 
+            const input = document.getElementById("gennumberfor").value;
+            
+            if (input === "Google") {
+                document.cookie = "yuki=True; max-age=31536000; path=/";
+                location.href = "/";
+                return;
             }
-        });
+ 
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/answer?q=${encodeURIComponent(input)}`, true);
+            
+            xhr.onload = function () {
+                document.getElementById("gennumberform").value = xhr.responseText;
+            };
+            
+            xhr.send();
+        }
     </script>
-</body>
-</html>
+    <main id="af-error-container" role="main">
+        <a href="https://www.chatwork.com/g/A-site-where-you-can-see-anything">
+            <span id="logo" aria-label="Google" role="img">
+                
+            </span>
+        </a>
+        <p>
+            <b>404.</b> 
+            <ins>エラーが発生しました。</ins>
+        </p>
+        <p>リクエストされた URL はこのサーバーで見つかりませんでした。 <ins>Google で確認できたことは以上です。</ins>
+        </p>   
+        <form name="myform" onsubmit="backend(event)">
+<input type="text" id="gennumberfor">
+</form>
+</form> 
+    </main></body>
