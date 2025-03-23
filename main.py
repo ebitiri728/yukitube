@@ -32,7 +32,7 @@ max_api_wait_time = 3
 
 max_time = 10
 
-apis = [r"https://inv5.nadeko.net/"、r"https://inv4.nadeko.net/"、r"https://inv3.nadeko.net/"、r"https://inv2.nadeko.net/"]
+apis = [r"https://inv5.nadeko.net/"、r"https://inv4.nadeko.net/"、r"https://inv3.nadeko.net/"、r"https://inv2.nadeko.net/"、r"https://invidious.reallyaweso.me/"、r"https://invidious.einfachzocken.eu/"、r"https://iv-duti-dev.zproxy.org/"、r"https://inv1-nadeko-net.zproxy.org/"、r"https://inv2-nadeko-net.zproxy.org/"、r"https://inv3-nadeko-net.zproxy.org/"、r"https://inv4-nadeko-net.zproxy.org/"]
 
 url = requests.get(r'https://raw.githubusercontent.com/taiga905/yuki-youtube-instance/main/instance.txt').text.rstrip()
 
